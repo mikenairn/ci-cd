@@ -1,6 +1,7 @@
 FROM centos:7
 ENV LANG=en_US.utf8
 ENV GOPATH /tmp/go
+ENV GO111MODULE=on
 
 RUN yum install epel-release -y \
     && yum install --enablerepo=centosplus install -y --quiet \
