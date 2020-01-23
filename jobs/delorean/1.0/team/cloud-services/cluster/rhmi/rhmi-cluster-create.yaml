@@ -1,10 +1,26 @@
 ---
 - job:
-    name: delorean-1-team/cloud-services/openshift-cluster-create
-    display-name: 'OpenShift Cluster Create'
+    name: delorean-1-team/cloud-services/rhmi-cluster-create
+    display-name: 'RHMI Cluster Create'
     project-type: pipeline
     concurrent: true
     parameters:
+      - string:
+          name: 'jobPrefix'
+          default: 'delorean-1-team/cloud-services/'
+          description: '[REQUIRED] jobPrefix'
+      - string:
+          name: 'domainName'
+          default: 'skunkhenry.com'
+          description: '[REQUIRED] domainName'
+      - string:
+          name: 'installationGitUrl'
+          default: 'https://github.com/integr8ly/installation.git'
+          description: '[REQUIRED] Integreatly installer Git URL'
+      - string:
+          name: 'installationGitBranch'
+          default: 'master'
+          description: '[REQUIRED] The name of the git branch to be used for the Integreatly installer'
       - string:
           name: 'clusterName'
           default: ''
@@ -49,7 +65,7 @@
           default: '3'
           description: '[REQUIRED] The amount of AWS infra nodes to be created'
     pipeline-scm:
-      script-path: jobs/delorean/jenkinsfiles/1.0/cluster/openshift/create/Jenkinsfile
+      script-path: jobs/delorean/jenkinsfiles/1.0/cluster/rhmi/create/Jenkinsfile
       scm:
         - git:
             branches:

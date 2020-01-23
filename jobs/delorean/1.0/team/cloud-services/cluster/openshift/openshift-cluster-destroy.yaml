@@ -12,8 +12,6 @@
       - choice:
           name: 'awsRegion'
           choices:
-            - 'us-east-1'
-            - 'eu-west-1'
             - 'eu-west-2'
           description: '[REQUIRED] The AWS Region the cluster was provisioned in'
       - choice:

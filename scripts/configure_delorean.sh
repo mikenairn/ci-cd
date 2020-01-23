@@ -79,6 +79,7 @@ generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/cluster/openshift/b
 #Cloud Services Team
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/openshift/openshift-cluster-create.yaml
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/openshift/openshift-cluster-destroy.yaml
+generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/rhmi/rhmi-cluster-create.yaml
 
 #3Scale Team
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/3scale/cluster/openshift/openshift-cluster-create.yaml

@@ -59,7 +59,7 @@ stage("Verify Installation Options") {
 
 stage('Pre-install') {
     // Syncs brew images if an image sync config file is found
-    def jobName = 'openshift-cluster-brew-image-sync'
+    def jobName = 'delorean-1-cluster/openshift-cluster-brew-image-sync'
     def jobParams = [
         [$class: 'StringParameterValue', name: 'openshiftMasterUrl', value: installerOptions.openshiftMasterUrl],
         [$class: 'StringParameterValue', name: 'clusterAdminUsername', value: installerOptions.clusterAdminUsername],
@@ -91,6 +91,7 @@ node('cirhos_rhel7') {
             integreatly_project_install_scm_branch: ${installerOptions.installationGitBranch}
             eval_seed_users_count: ${installerOptions.userCount}
             eval_self_signed_certs: '${installerOptions.selfSignedCerts}'
+            create_cluster_admin: True
             integreatly_inventory_source_aws_credentials: ${installerOptions.awsCredentials}"""
 
             // append additional parameters    

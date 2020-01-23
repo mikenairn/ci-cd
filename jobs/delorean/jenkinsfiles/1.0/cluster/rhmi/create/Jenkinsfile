@@ -1,0 +1,79 @@
+#!groovy
+
+def testOptions = [:]
+
+def verifyParameters(testOptions) {
+    if (!testOptions.gitUrl || !testOptions.gitBranch) {
+        def userInput = input message: 'Integreatly Test Options', parameters: [
+                string(defaultValue: (testOptions.gitUrl ?: 'https://github.com/integr8ly/installation.git'), description: 'Integreatly installer Git URL', name: 'installationGitUrl'),
+                string(defaultValue: (testOptions.gitBranch ?: 'master'), description: 'Integreatly Git Branch', name: 'installationGitBranch'),
+        ]
+
+        testOptions.gitUrl = userInput.installationGitUrl
+        testOptions.gitBranch = userInput.installationGitBranch
+        if(!testOptions.clusterName) {
+            testOptions.clusterName = userInput.installationGitBranch
+            testOptions.openshiftMasterUrl = "https://${userInput.installationGitBranch}.${testOptions.domainName}"
+        }
+        verifyParameters(testOptions)
+    }
+}
+
+pipeline {
+    agent {
+        node {
+            label 'cirhos_rhel7'
+        }
+    }
+
+    stages {
+        stage('Verify Parameters') {
+            steps {
+                script {
+                    testOptions.jobPrefix = params.jobPrefix
+                    testOptions.awsAccountName = params.awsAccountName
+                    testOptions.awsRegion = params.awsRegion
+                    testOptions.clusterName = params.clusterName
+                    testOptions.domainName = params.domainName
+                    testOptions.gitUrl = params.installationGitUrl
+                    testOptions.gitBranch = params.installationGitBranch
+                    testOptions.openshiftMasterUrl = "https://${testOptions.clusterName}.${testOptions.domainName}"
+                    verifyParameters(testOptions)
+                }
+            }
+        }
+
+        stage('RHMI Cluster Create') {
+            steps {
+                echo "[INFO] Creating ${testOptions.clusterName} cluster"
+                script {
+                    def jobName = testOptions.jobPrefix + 'openshift-cluster-create'
+                    def jobParams = [
+                            [$class: 'StringParameterValue', name: 'clusterName', value: testOptions.clusterName],
+                            [$class: 'StringParameterValue', name: 'awsRegion', value: testOptions.awsRegion],
+                            [$class: 'StringParameterValue', name: 'awsAccountName', value: testOptions.awsAccountName],
+                            [$class: 'BooleanParameterValue', name: 'dryRun', value: params.dryRun]
+                    ]
+                    build job: jobName, parameters: jobParams
+                }
+            }
+        }
+
+        stage('RHMI Install') {
+            steps {
+                echo "[INFO] Installing RHMI in ${testOptions.clusterName} cluster"
+                script {
+                    jobName = 'delorean-1-cluster/openshift-cluster-integreatly-install'
+                    jobParams = [
+                            [$class: 'StringParameterValue', name: 'clusterName', value: testOptions.clusterName],
+                            [$class: 'StringParameterValue', name: 'openshiftMasterUrl', value: testOptions.openshiftMasterUrl],
+                            [$class: 'StringParameterValue', name: 'installationGitUrl', value: testOptions.gitUrl],
+                            [$class: 'StringParameterValue', name: 'installationGitBranch', value: testOptions.gitBranch],
+                            [$class: 'BooleanParameterValue', name: 'dryRun', value: params.dryRun]
+                    ]
+                    build job: jobName, parameters: jobParams
+                }
+            }
+        }
+    }
+}

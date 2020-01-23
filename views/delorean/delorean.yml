@@ -13,3 +13,19 @@
      - status
      - job
      - description
+
+# ToDo Figure out how to configure these views with jjb
+#- view:
+#    name: Delorean (Cloud Services)
+#    columns:
+#    - status
+#    - job
+#    - description
+#
+#- view:
+#    name: Delorean (3Scale)
+#    columns:
+#    - status
+#    - job
+#    - description
+
