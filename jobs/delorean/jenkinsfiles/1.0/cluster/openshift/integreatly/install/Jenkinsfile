@@ -91,7 +91,6 @@ node('cirhos_rhel7') {
             integreatly_project_install_scm_branch: ${installerOptions.installationGitBranch}
             eval_seed_users_count: ${installerOptions.userCount}
             eval_self_signed_certs: '${installerOptions.selfSignedCerts}'
-            create_cluster_admin: True
             integreatly_inventory_source_aws_credentials: ${installerOptions.awsCredentials}"""
 
             // append additional parameters    

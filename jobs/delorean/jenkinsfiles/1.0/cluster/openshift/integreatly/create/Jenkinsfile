@@ -13,7 +13,7 @@ def verifyParameters(testOptions) {
         testOptions.gitBranch = userInput.installationGitBranch
         if(!testOptions.clusterName) {
             testOptions.clusterName = userInput.installationGitBranch
-            testOptions.openshiftMasterUrl = "https://${userInput.installationGitBranch}.${testOptions.domainName}"
+            testOptions.openshiftMasterUrl = "https://${userInput.installationGitBranch}.${testOptions.clusterDomainName}"
         }
         verifyParameters(testOptions)
     }
@@ -34,22 +34,23 @@ pipeline {
                     testOptions.awsAccountName = params.awsAccountName
                     testOptions.awsRegion = params.awsRegion
                     testOptions.clusterName = params.clusterName
-                    testOptions.domainName = params.domainName
+                    testOptions.clusterDomainName = params.clusterDomainName
                     testOptions.gitUrl = params.installationGitUrl
                     testOptions.gitBranch = params.installationGitBranch
-                    testOptions.openshiftMasterUrl = "https://${testOptions.clusterName}.${testOptions.domainName}"
+                    testOptions.openshiftMasterUrl = "https://${testOptions.clusterName}.${testOptions.clusterDomainName}"
                     verifyParameters(testOptions)
                 }
             }
         }
 
-        stage('RHMI Cluster Create') {
+        stage('OpenShift Cluster Create') {
             steps {
                 echo "[INFO] Creating ${testOptions.clusterName} cluster"
                 script {
                     def jobName = testOptions.jobPrefix + 'openshift-cluster-create'
                     def jobParams = [
                             [$class: 'StringParameterValue', name: 'clusterName', value: testOptions.clusterName],
+                            [$class: 'StringParameterValue', name: 'clusterDomainName', value: testOptions.clusterDomainName],
                             [$class: 'StringParameterValue', name: 'awsRegion', value: testOptions.awsRegion],
                             [$class: 'StringParameterValue', name: 'awsAccountName', value: testOptions.awsAccountName],
                             [$class: 'BooleanParameterValue', name: 'dryRun', value: params.dryRun]
@@ -59,7 +60,7 @@ pipeline {
             }
         }
 
-        stage('RHMI Install') {
+        stage('Integreatly Install') {
             steps {
                 echo "[INFO] Installing RHMI in ${testOptions.clusterName} cluster"
                 script {

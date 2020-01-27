@@ -50,7 +50,7 @@
 # 3Scale
 - job:
     name: delorean-1-ews/3scale
-    description: https://github.com/3scale/3scale-amp-openshift-templates
+    description: 'https://github.com/3scale/3scale-amp-openshift-templates https://github.com/3scale/3scale-operator'
     display-name: '3scale'
     project-type: folder
 - job:
@@ -109,6 +109,7 @@
 # Fuse Online
 - job:
     name: delorean-1-ews/fuse-online
+    description: 'https://github.com/syndesisio/fuse-online-install/'
     display-name: 'Fuse Online'
     project-type: folder
 - job:

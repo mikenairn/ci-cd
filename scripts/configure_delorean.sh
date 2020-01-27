@@ -64,12 +64,12 @@ generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/ews/mobile-walkthro
 #Delorean 1.0 OpenShift Cluster Jobs
 
 #Cloud Services Team ToDo Refactor these to use the shared jobs
-generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/create/openshift-cluster-create.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/deprovision/openshift-cluster-deprovision.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/integreatly/openshift-cluster-integreatly-install.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/integreatly/openshift-cluster-integreatly-uninstall.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/integreatly/openshift-cluster-integreatly-test.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/brew/openshift-cluster-brew-image-sync.yaml
+#generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/create/openshift-cluster-create.yaml
+#generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/deprovision/openshift-cluster-deprovision.yaml
+#generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/integreatly/openshift-cluster-integreatly-install.yaml
+#generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/integreatly/openshift-cluster-integreatly-uninstall.yaml
+#generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/integreatly/openshift-cluster-integreatly-test.yaml
+#generate_inline_script_job $SCRIPTS_DIR/../jobs/openshift/cluster/brew/openshift-cluster-brew-image-sync.yaml
 
 #Shared
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/cluster/openshift/integreatly/openshift-cluster-integreatly-install.yaml
@@ -79,7 +79,8 @@ generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/cluster/openshift/b
 #Cloud Services Team
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/openshift/openshift-cluster-create.yaml
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/openshift/openshift-cluster-destroy.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/rhmi/rhmi-cluster-create.yaml
+generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/openshift/openshift-cluster-integreatly-create.yaml
+generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/cloud-services/cluster/openshift/openshift-cluster-integreatly-test.yaml
 
 #3Scale Team
 generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/1.0/team/3scale/cluster/openshift/openshift-cluster-create.yaml
